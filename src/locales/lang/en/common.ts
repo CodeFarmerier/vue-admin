@@ -1,5 +1,5 @@
 export default {
-  appName: 'Ark Admin',
+  appName: 'Project Admin',
 
   // http util
   http: {
@@ -21,7 +21,7 @@ export default {
   exception: {
     backHome: 'Back Home',
     noDataTitle: 'No data',
-    subTitle403: 'Sorry, you don\'t have access to this page.',
+    subTitle403: "Sorry, you don't have access to this page.",
     subTitle404: 'Sorry, the page you visited does not exist.',
     subTitle500: 'Sorry, the server is reporting an error.',
     networkErrorTitle: 'Network Error',

@@ -1,5 +1,5 @@
 export default {
-  appName: '方舟管理后台',
+  appName: '项目管理平台',
 
   // http util
   http: {
