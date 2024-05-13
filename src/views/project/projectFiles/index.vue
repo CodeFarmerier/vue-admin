@@ -3,7 +3,10 @@
     <PageWrapper>
       <div class="container">
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
-          <el-form-item label="项目名">
+          <el-form-item label="文件名">
+            <el-input v-model="formInline.user" placeholder="请输入" clearable />
+          </el-form-item>
+          <el-form-item label="文件后缀">
             <el-input v-model="formInline.user" placeholder="请输入" clearable />
           </el-form-item>
           <el-form-item label="用户名">
@@ -30,35 +33,26 @@
       <div class="container tableHeader">
         <h2>存储管理</h2>
         <div>
-          <el-button type="primary" @click="onSubmit">新建项目</el-button>
-          <el-button type="danger" @click="onSubmit">批量删除</el-button>
+          <el-button type="primary" @click="onSubmit">上传</el-button>
+          <el-button type="danger" @click="onSubmit">删除</el-button>
         </div>
       </div>
       <div class="container">
         <el-table
           ref="multipleTableRef"
           :data="tableData"
-          style="width: 100%; cursor: pointer"
+          style="width: 100%"
           @selection-change="handleSelectionChange"
         >
-          <el-table-column type="selection" />
-          <el-table-column prop="ID" v-if="false" label="id" />
-          <el-table-column prop="name" label="项目名称" />
-          <el-table-column prop="leader" label="项目创建者" />
-          <el-table-column prop="createdAt" label="创建时间" />
-          <el-table-column prop="description" label="项目描述" v-if="false" />
-          <el-table-column label="操作">
-            <template #default="{ row }">
-              <div style="display: flex">
-                <!-- 编辑按钮 -->
-                <el-button type="" text @click="editProject(row)">详情</el-button>
-                <el-button type="text" @click="editProject(row)">修改</el-button>
-
-                <!-- 删除按钮 -->
-                <el-button type="danger" text @click="deleteProject(row)">删除</el-button>
-              </div>
-            </template>
-          </el-table-column>
+          <el-table-column type="selection" width="55" />
+          <el-table-column prop="ID" v-if="false" label="id" width="60" />
+          <el-table-column prop="dataIndex" label="文件名" width="150" />
+          <el-table-column prop="path" label="预览图" width="150" />
+          <el-table-column prop="extName" label="文件后缀" width="150" />
+          <el-table-column prop="type" label="类别" width="150" />
+          <el-table-column prop="size" label="大小" width="150" />
+          <el-table-column prop="username" label="上传者" width="150" />
+          <el-table-column prop="createdAt" label="创建时间" width="150" />
         </el-table>
       </div>
     </PageWrapper>
@@ -70,33 +64,45 @@ import { PageWrapper } from '/@/components/Page'
 import { ElTable } from 'element-plus'
 interface User {
   ID: number
-  name: string
-  leader: string
+  dataIndex: string
+  path: string
+  extName: string
+  type: string
+  size: string
+  username: string
   createdAt: string
-  description: string
 }
 
 const tableData: User[] = [
   {
     ID: 1,
-    name: '项目A',
-    leader: '张三',
+    dataIndex: 'File1',
+    path: '/path/to/preview1.jpg',
+    extName: 'jpg',
+    type: 'image',
+    size: '2 MB',
+    username: 'User1',
     createdAt: '2024-05-12',
-    description: '这是项目A的描述',
   },
   {
     ID: 2,
-    name: '项目B',
-    leader: '李四',
+    dataIndex: 'File2',
+    path: '/path/to/preview2.jpg',
+    extName: 'jpg',
+    type: 'image',
+    size: '1.5 MB',
+    username: 'User2',
     createdAt: '2024-05-13',
-    description: '这是项目B的描述',
   },
   {
     ID: 3,
-    name: '项目C',
-    leader: '王五',
+    dataIndex: 'File3',
+    path: '/path/to/preview3.jpg',
+    extName: 'jpg',
+    type: 'image',
+    size: '3 MB',
+    username: 'User3',
     createdAt: '2024-05-14',
-    description: '这是项目C的描述',
   },
 ]
 const multipleTableRef = ref<InstanceType<typeof ElTable>>()
@@ -115,15 +121,6 @@ const defaultDateRange = ref<[Date, Date]>([
   new Date(), // 当前日期
   new Date(), // 当前日期
 ])
-const editProject = (project) => {
-  // 编辑项目的逻辑
-  console.log('编辑项目', project)
-}
-
-const deleteProject = (project) => {
-  // 删除项目的逻辑
-  console.log('删除项目', project)
-}
 const onSubmit = () => {
   console.log('submit!')
 }
